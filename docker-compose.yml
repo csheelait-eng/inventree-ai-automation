@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+
+  inventree:
+    image: inventree/inventree
+    container_name: inventree-server
+    ports:
+      - "8000:8000"
+    environment:
+      INVENTREE_SITE_URL: http://localhost:8000/
+      INVENTREE_DB_ENGINE: django.db.backends.postgresql
+      INVENTREE_DB_NAME: inventree
+      INVENTREE_DB_USER: inventree
+      INVENTREE_DB_PASSWORD: inventree
+      INVENTREE_DB_HOST: db
+      INVENTREE_DB_PORT: 5432
+      INVENTREE_REDIS_HOST: redis
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    container_name: inventree-db
+    environment:
+      POSTGRES_DB: inventree
+      POSTGRES_USER: inventree
+      POSTGRES_PASSWORD: inventree
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: inventree-redis
+
+volumes:
+  postgres_data:
