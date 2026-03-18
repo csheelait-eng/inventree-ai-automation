@@ -20,19 +20,19 @@ inventree-test-automation/
 ├── agents/  
 │ ├── api/ # Prompts for API test case & automation generation  
 │ ├── ui/ # Prompts for UI test case & automation generation  
-│ └── [agent-configuration.md](http://agent-configuration.md) # AI agent setup and orchestration strategy  
+│ └── [agent-configuration.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/agents/agent_configuration.md) # AI agent setup and orchestration strategy  
 │  
 ├── automation/  
 │ ├── docs/  
-│ │ ├── [limitations.md](http://limitations.md) # Known limitations and constraints  
-│ │ └── [tool-selection-justification.md](http://tool-selection-justification.md) # Framework and tool selection rationale  
+│ │ ├── [limitations.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/docs/limitations.md) # Known limitations and constraints  
+│ │ └── [tool-selection-justification.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/docs/tool-selection-justification.md) # Framework and tool selection rationale  
 │ │  
 │ ├── api/  
 │ │ ├── tests/ # API test scripts  
-│ │ ├── [conftest.py](http://conftest.py) # Fixtures (auth, setup, reporting)  
-│ │ ├── [config.py](http://config.py) # Base URL, token, environment config  
+│ │ ├── [conftest.py](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/api/conftest.py) # Fixtures (auth, setup, reporting)  
+│ │ ├── [config.py](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/api/config.py) # Base URL, token, environment config  
 │ │ ├── requirements.txt # Python dependencies  
-│ │ ├── change_[history.md](http://history.md) # API automation changes and enhancements  
+│ │ ├── [change_history.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/api/change_history.md) # API automation changes and enhancements  
 │ │ └── reports/ # API execution reports (HTML)  
 │ │  
 │ ├── ui/  
@@ -43,7 +43,7 @@ inventree-test-automation/
 │ │ ├── playwright.config.js # Playwright configuration (env fallback enabled)  
 │ │ ├── package.json # Node dependencies  
 │ │ ├── .env # Environment variables (credentials/config)  
-│ │ └── change_[history.md](http://history.md) # UI automation changes and enhancements  
+│ │ └── [change_history.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/automation/ui/change_history.md) # UI automation changes and enhancements  
 │  
 ├── test-cases/  
 │ ├── api-manual-tests/ # API manual test cases  
@@ -53,9 +53,9 @@ inventree-test-automation/
 │  
 ├── video/ # Demo video links (cloud-hosted)  
 │  
-├── docker-compose.yaml # InvenTree service setup  
+├── docker-compose.yaml  # InvenTree service setup  
 ├── start-inventree.ps1 # Optional setup script  
-├── [README.md](http://README.md)
+├── [README.md](https://github.com/csheelait-eng/inventree-ai-automation/blob/main/README.md)
 
 ---
 
