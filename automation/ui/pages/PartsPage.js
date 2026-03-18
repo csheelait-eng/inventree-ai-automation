@@ -89,6 +89,10 @@ class PartsPage {
       .or(this.page.getByRole('button', { name: /create part/i }))
       .or(this.page.getByText(/^create part$/i))
       .first();
+    const createDialog = this.page
+      .getByRole('dialog')
+      .filter({ hasText: /create part|add part|new part/i })
+      .first();
     const addPartsMenuTrigger = this.page
       .locator('button[aria-label="action-menu-add-parts"], button[aria-label*="add-parts" i]')
       // Demo UI: "+" dropdown button
@@ -101,8 +105,12 @@ class PartsPage {
     const createFormNameField = this.page
       .getByLabel(/^name/i)
       .or(this.page.getByRole('textbox', { name: /^name/i }))
+      .or(this.page.getByPlaceholder(/name/i))
       .or(this.page.locator('input[name="name"], input#id_name, input[placeholder*="name" i]'))
       .first();
+    const isCreateFormOpen = async () =>
+      (await createDialog.isVisible().catch(() => false)) ||
+      (await createFormNameField.isVisible().catch(() => false));
 
     for (let attempt = 1; attempt <= 3; attempt++) {
       // 1) Go to a stable Parts listing URL (avoid "/web/part" redirecting to last visited part)
@@ -131,17 +139,20 @@ class PartsPage {
       await this.page.waitForLoadState('networkidle');
 
       // Success condition: Create form is open
-      if (await createFormNameField.isVisible().catch(() => false)) {
+      if (await isCreateFormOpen()) {
         return;
       }
     }
 
-    throw new Error('Could not open Create Part form after retries (demo navigation/locators).');
+    // If a modal is already open, don't try to click anything behind it.
+    if (await isCreateFormOpen()) {
+      return;
+    }
 
-    // Also try a generic enabled create/add/new button.
+    // Fallback A: try a generic enabled create/add/new button.
     const createAnyEnabled = this.page.getByRole('button', { name: /create|add|new/i }).filter({ hasNot: this.page.locator('[disabled]') }).first();
     if (await createAnyEnabled.isVisible().catch(() => false)) {
-      await createAnyEnabled.click();
+      await createAnyEnabled.click({ force: true });
       // If this opened a dropdown, select the actual "Create Part" entry.
       const createPartItem = this.page
         // Demo DOM (deterministic)
@@ -153,12 +164,13 @@ class PartsPage {
       if (await createPartItem.first().isVisible().catch(() => false)) {
         await createPartItem.first().click({ timeout: 15_000 });
         await this.page.waitForLoadState('networkidle');
-        await createFormNameField.waitFor({ state: 'visible', timeout: 30_000 });
+        await createDialog.waitFor({ state: 'visible', timeout: 30_000 }).catch(() => {});
+        await createFormNameField.waitFor({ state: 'visible', timeout: 30_000 }).catch(() => {});
         return;
       }
     }
 
-    // Demo: open breadcrumb action menu then click "Create Part"
+    // Fallback B: open breadcrumb action menu then click "Create Part"
     if (await this.breadcrumbActionButton.isVisible().catch(() => false)) {
       await this.breadcrumbActionButton.click();
       // Popovers/menus in the demo UI are not always exposed as role=menuitem,
@@ -174,11 +186,12 @@ class PartsPage {
       await createItem.first().waitFor({ state: 'visible', timeout: 15_000 });
       await createItem.first().click({ timeout: 15_000 });
       await this.page.waitForLoadState('networkidle');
-      await createFormNameField.waitFor({ state: 'visible', timeout: 30_000 });
+      await createDialog.waitFor({ state: 'visible', timeout: 30_000 }).catch(() => {});
+      await createFormNameField.waitFor({ state: 'visible', timeout: 30_000 }).catch(() => {});
       return;
     }
 
-    throw new Error('Could not find a "Create Part" action on the Parts page.');
+    throw new Error('Could not open Create Part form after retries (demo navigation/locators).');
   }
 
   async searchFor(text) {
