@@ -1,0 +1,19 @@
+# Node / Playwright UI automation
+node_modules/
+
+
+# Python / pytest artifacts
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+
+# Playwright generated artifacts (UI)
+automation/ui/.auth/
+automation/ui/reports/
+
+
+# Playwright defaults (if any)
+playwright-report/
+test-results/
+

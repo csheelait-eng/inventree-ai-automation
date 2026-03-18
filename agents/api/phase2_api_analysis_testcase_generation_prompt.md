@@ -1,4 +1,4 @@
-# Phase 2 –  API Specification Analysis and API Test Generation Prompt
+# Phase 2 –  API Specification Analysis and API Testcase Generation Prompt
 
 ## AI Agent Used : Claude
 
@@ -30,6 +30,7 @@ The purpose of this prompt is to:
 ## Prompt Usage:
 
 The generated test cases should validate the following areas:
+
 - CRUD operations for Parts and Part Categories
 - Filtering, pagination, and search functionality
 - Field-level validation rules
@@ -38,17 +39,17 @@ The generated test cases should validate the following areas:
 
 The output is organized into separate sections so the generated artifacts can be easily copied into the project folder structure.
 
-
 ## Prompt:
 
-You are a QA Engineer specializing in API testing.
+You are a Senior QA Engineer specializing in API testing.
 
 Analyze the InvenTree Parts API schema and generate structured manual API test cases based on the identified endpoints, request parameters, validations, and relationships.
 
 Schema source:
-https://docs.inventree.org/en/stable/api/schema/part/
+[https://docs.inventree.org/en/stable/api/schema/part/](https://docs.inventree.org/en/stable/api/schema/part/)
 
 First identify:
+
 - API endpoints
 - HTTP methods
 - Request fields
@@ -60,6 +61,7 @@ First identify:
 - Relationships (category, supplier, location)
 
 Then generate API test cases covering:
+
 - CRUD operations for Parts
 - CRUD operations for Part Categories
 - Filtering, pagination, and search on the Parts endpoint
@@ -67,10 +69,10 @@ Then generate API test cases covering:
 - Relational integrity (category assignment and related entities)
 - Edge cases such as invalid payloads, unauthorized access, and resource conflicts
 
-
 Test Case Format:
 
 Each test case must include the following fields:
+
 
 | Field                | Description                    |
 | -------------------- | ------------------------------ |
@@ -92,8 +94,6 @@ Include both positive and negative scenarios.
 Use realistic API payload examples consistent with the API schema.
 Keep the total number of test cases around 30–40 across all files.
 
-
-
 ### Output Structure
 
 Organize the output under the following file headings so the test index, schema analysis, and test cases can be directly copied into the project folder.
@@ -105,6 +105,5 @@ test-cases/api-manual-tests/category_crud_tests.md
 test-cases/api-manual-tests/filtering_pagination_tests.md
 test-cases/api-manual-tests/field_validation_tests.md
 test-cases/api-manual-tests/relational_integrity_tests.md
-
 
 Use markdown tables for the test cases.

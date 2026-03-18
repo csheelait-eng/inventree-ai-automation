@@ -17,12 +17,12 @@ Requirement analysis and test design were performed in a single prompt to keep t
 
 ## Prompt:
 
-You are a QA Engineer.
+You are a Senior QA Engineer.
 
 Analyze the InvenTree Parts documentation and generate a minimal but complete set of UI/manual test cases.
 
 Documentation source:
-https://docs.inventree.org/en/stable/part/
+[https://docs.inventree.org/en/stable/part/](https://docs.inventree.org/en/stable/part/)
 
 Include sub-pages:
 
@@ -98,10 +98,12 @@ Generate only minimal coverage:
 Organize the output under these file headings so the test cases can be copied into files.  
 
 testcases/part_creation
+
 - manual_part_creation.md
 - import_part_creation.md
 
 testcases/part_detail_view  
+
 - stock_tests.md 
 - bom_tests.md  
 - allocated_tests.md  
@@ -111,25 +113,30 @@ testcases/part_detail_view
 - revisions_tests.md
 - attachments_tests.md  
 - related_parts_tests.md  
-- test_templates_tests.md  
+- test_templates_tests.md
 
 testcases/part_categories  
+
 - category_hierarchy.md  
 - category_filtering.md  
 - parametric_tables.md
 
 testcases/part_attributes  
+
 - part_type_attributes.md
-- active_inactive_states.md  
+- active_inactive_states.md
 
 testcases/units_of_measure  
-- units_configuration.md  
+
+- units_configuration.md
 
 testcases/part_revisions  
+
 - revision_creation.md
-- revision_constraints.md  
+- revision_constraints.md
 
 testcases/negative_boundary_tests  
+
 - duplicate_ipn.md  
 - inactive_part_restrictions.md 
 - revision_of_revision.md

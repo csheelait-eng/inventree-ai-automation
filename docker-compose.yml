@@ -1,10 +1,28 @@
-version: "3.8"
-
+version: '3.9'  
 services:
 
+  db:
+    image: postgres:15-alpine
+    container_name: inventree-db
+    environment:
+      POSTGRES_DB: inventree
+      POSTGRES_USER: inventree
+      POSTGRES_PASSWORD: inventree
+    ports:
+      - "5432:5432"
+    volumes:
+      - inventree-db-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: inventree-redis
+    ports:
+      - "6379:6379"
+
   inventree:
-    image: inventree/inventree
+    image: inventree/inventree:latest
     container_name: inventree-server
+    working_dir: /home/inventree/src/backend/InvenTree
     ports:
       - "8000:8000"
     environment:
@@ -19,20 +37,15 @@ services:
     depends_on:
       - db
       - redis
-
-  db:
-    image: postgres:15
-    container_name: inventree-db
-    environment:
-      POSTGRES_DB: inventree
-      POSTGRES_USER: inventree
-      POSTGRES_PASSWORD: inventree
+    entrypoint: []
+    command: >
+      bash -c "
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7
-    container_name: inventree-redis
-
+      - inventree-data:/home/inventree/data
 volumes:
-  postgres_data:
+  inventree-db-data:
+  inventree-redis-data:
+  inventree-data:
